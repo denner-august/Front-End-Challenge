@@ -4,8 +4,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { TableNames } from "../table";
 
 export function Content() {
-  const [search, setSearch] =
-    useState<Dispatch<SetStateAction<string>>>(String);
+  const [search, setSearch] = useState<Dispatch<SetStateAction<string>>>();
 
   return (
     <>
