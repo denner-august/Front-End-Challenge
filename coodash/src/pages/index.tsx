@@ -4,10 +4,10 @@ import { Content } from "../components/Content/index";
 
 const Home: NextPage = () => {
   return (
-    <>
+    <div>
       <Header />
       <Content />
-    </>
+    </div>
   );
 };
 
