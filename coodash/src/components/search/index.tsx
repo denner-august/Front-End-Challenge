@@ -1,8 +1,11 @@
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useContext } from "react";
+import Context from "../../Context/users";
 export function Search(props: any) {
   const { searching } = props;
+
+  const { data } = useContext(Context);
 
   return (
     <>
