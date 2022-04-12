@@ -5,11 +5,11 @@ import { ConxtProvider } from "../Context/users";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ConxtProvider>
-      <ChakraProvider>
+    <ChakraProvider>
+      <ConxtProvider>
         <Component {...pageProps} />
-      </ChakraProvider>
-    </ConxtProvider>
+      </ConxtProvider>
+    </ChakraProvider>
   );
 }
 
