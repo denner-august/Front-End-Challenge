@@ -15,23 +15,31 @@ export function TableNames() {
   const { data } = useContext(Context);
 
   if (data) {
-    data.map((item: any) => {
-      console.log(item.name);
-    });
+    return (
+      <TableContainer>
+        <Table variant="unstyled" className={styles.table}>
+          <Thead>
+            <Tr>
+              <Th>Nome</Th>
+              <Th>genero</Th>
+              <Th>Nascimento</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {data.map((user: any, index: number) => (
+              <Tr key={index}>
+                <Td>
+                  {user.name.first} {user.name.last}
+                </Td>
+                <Td>{user.gender}</Td>
+                <Td>{new Date(user.dob.date).toLocaleDateString("pt-br")}</Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    );
   }
 
-  return (
-    <TableContainer>
-      <Table variant="unstyled" className={styles.table}>
-        <Thead>
-          <Tr>
-            <Th>Nome</Th>
-            <Th>Genero</Th>
-            <Th>Nascimento</Th>
-          </Tr>
-        </Thead>
-        <Tbody></Tbody>
-      </Table>
-    </TableContainer>
-  );
+  return <></>;
 }
