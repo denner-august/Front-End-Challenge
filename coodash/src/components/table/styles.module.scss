@@ -1,14 +1,18 @@
 .table{
+    width: 10%;
 
+    
     th{
         font-size: 1.1rem;
         background-color: #C3CFD9;
     }
     th,td{
        text-align: center;
-       width: 100%;
        border:1px solid black;
+    }
 
+    td{
+        font-size: 1.3rem;
     }
 
     
