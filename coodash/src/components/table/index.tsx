@@ -7,14 +7,36 @@ import {
   Td,
   TableContainer,
 } from "@chakra-ui/react";
-import { useContext } from "react";
-import Context from "../../Context/users";
+import { useContext, useEffect, useState } from "react";
+import Context, { ContextProps } from "../../Context/users";
 import styles from "./styles.module.scss";
 
 export function TableNames() {
-  const { data } = useContext(Context);
+  const { data, search } = useContext(Context);
 
-  if (data) {
+  const [filteredData, setFilteredData] = useState<any>();
+
+  useEffect(() => {
+    return setFilteredData(data);
+  }, [data]);
+
+  useEffect(() => {
+    if (search === "") {
+      return setFilteredData(data);
+    } else {
+      setFilteredData(
+        data.filter((item: { name: { first: string } }) => {
+          if (
+            item.name.first.toLowerCase().indexOf(search.toLowerCase()) > -1
+          ) {
+            return item;
+          }
+        })
+      );
+    }
+  }, [search]);
+
+  if (filteredData) {
     return (
       <TableContainer>
         <Table variant="unstyled" className={styles.table}>
@@ -26,7 +48,7 @@ export function TableNames() {
             </Tr>
           </Thead>
           <Tbody>
-            {data.map((user: any, index: number) => (
+            {filteredData.map((user: any, index: number) => (
               <Tr key={index}>
                 <Td>
                   {user.name.first} {user.name.last}

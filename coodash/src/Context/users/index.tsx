@@ -9,23 +9,23 @@ import {
 } from "react";
 import axios from "axios";
 
-interface ContextProps {
-  data:
-    | {
-        name: string;
-        gender: string;
-        map?: any;
-        id: { value: string };
-      }
-    | undefined;
+export interface ContextProps {
+  data: {
+    name: string;
+    gender: string;
+    map: any;
+    id: { value: string };
+    filter: any;
+  };
 
-  setDatafetch?: Dispatch<SetStateAction<undefined>>;
+  search: string;
+  setSearch: Dispatch<SetStateAction<string>>;
 }
 
 const Context = createContext({} as ContextProps);
 
 export const ConxtProvider = (props: { children: ReactChild }) => {
-  const [datafetch, setDatafetch] = useState([]);
+  const [search, setSearch] = useState("");
 
   const fetcher = (url: string) =>
     axios
@@ -38,9 +38,11 @@ export const ConxtProvider = (props: { children: ReactChild }) => {
     fetcher
   );
 
-  // setDatafetch((preve) => (preve = data));
-
-  return <Context.Provider value={{ data }}>{props.children}</Context.Provider>;
+  return (
+    <Context.Provider value={{ data, search, setSearch }}>
+      {props.children}
+    </Context.Provider>
+  );
 };
 
 export default Context;

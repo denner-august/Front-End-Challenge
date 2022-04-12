@@ -5,15 +5,17 @@ import Context from "../../Context/users";
 export function Search(props: any) {
   const { searching } = props;
 
-  const { data } = useContext(Context);
+  const { setSearch } = useContext(Context);
 
   return (
     <>
       <InputGroup width="50%" margin={"auto"}>
-        <InputRightElement children={<Search2Icon />} />
+        <InputRightElement>
+          <Search2Icon />
+        </InputRightElement>
         <Input
           type="search"
-          onChange={(event) => searching(event.target.value)}
+          onChange={(event) => setSearch(event.target.value)}
           placeholder="Pesquisar"
         />
       </InputGroup>
