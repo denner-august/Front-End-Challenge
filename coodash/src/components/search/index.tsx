@@ -3,8 +3,6 @@ import { Search2Icon } from "@chakra-ui/icons";
 import { useContext } from "react";
 import Context from "../../Context/users";
 export function Search(props: any) {
-  const { searching } = props;
-
   const { setSearch } = useContext(Context);
 
   return (
