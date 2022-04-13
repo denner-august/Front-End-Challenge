@@ -6,6 +6,7 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
 .conteudo{
     background-color: rgba(255, 255, 255, 0.24);
     margin: 30px auto;
@@ -15,6 +16,22 @@
     h1{
         color: white;
     }
-
- 
 }
+
+@media screen and (max-width: 700px){
+    .conteudo{
+        width: 90%;
+    }
+
+}
+    
+@media screen and (max-width: 600px){
+    .texto{
+        width: 90%;
+    }
+
+    .conteudo{
+        width: 90%;
+    }
+}
+    
