@@ -12,20 +12,20 @@ import Context, { ContextProps } from "../../Context/users";
 import styles from "./styles.module.scss";
 
 export function TableNames() {
-  const { data, search } = useContext(Context);
+  const { dataGlobal, search } = useContext(Context);
 
-  const [filteredData, setFilteredData] = useState<any>();
+  const [filteredData, setFilteredData] = useState<never[]>();
 
   useEffect(() => {
-    return setFilteredData(data);
-  }, [data]);
+    return setFilteredData(dataGlobal);
+  }, [dataGlobal]);
 
   useEffect(() => {
     if (search === "") {
-      return setFilteredData(data);
+      return setFilteredData(dataGlobal);
     } else {
       setFilteredData(
-        data.filter((item: { name: { first: string } }) => {
+        dataGlobal.filter((item: { name: { first: string } }) => {
           if (
             item.name.first.toLowerCase().indexOf(search.toLowerCase()) > -1
           ) {
@@ -45,23 +45,38 @@ export function TableNames() {
               <Th>Nome</Th>
               <Th>genero</Th>
               <Th>Nascimento</Th>
+              <Th>ficha</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {filteredData.map((user: any, index: number) => (
-              <Tr key={index}>
-                <Td>
-                  {user.name.first} {user.name.last}
-                </Td>
-                <Td>{user.gender}</Td>
-                <Td>{new Date(user.dob.date).toLocaleDateString("pt-br")}</Td>
-              </Tr>
-            ))}
+            {filteredData.map(
+              (
+                user: {
+                  name: { first: string; last: string };
+                  gender: string;
+                  dob: { date: Date };
+                },
+                index: number
+              ) => (
+                <Tr key={index}>
+                  <Td>
+                    {user.name.first} {user.name.last}
+                  </Td>
+                  <Td>{user.gender}</Td>
+                  <Td>{new Date(user.dob.date).toLocaleDateString("pt-br")}</Td>
+                  <Td className={styles.ficha}>
+                    <button onClick={() => console.log(user)}>
+                      Vizualizar
+                    </button>
+                  </Td>
+                </Tr>
+              )
+            )}
           </Tbody>
         </Table>
       </TableContainer>
     );
   }
 
-  return <></>;
+  return <p>objeto vazio</p>;
 }
