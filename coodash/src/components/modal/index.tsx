@@ -24,7 +24,7 @@ export function ManualClose({ paciente }: any) {
         <ModalContent>
           <ModalHeader>Create your account</ModalHeader>
           <ModalCloseButton />
-          <ModalBody pb={6}>{urlPaciente}</ModalBody>
+          <ModalBody pb={6}>{paciente}</ModalBody>
 
           <ModalFooter>
             <Button colorScheme="blue" mr={3}>
