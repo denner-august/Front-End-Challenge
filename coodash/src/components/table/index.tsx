@@ -8,12 +8,12 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import Context, { ContextProps } from "../../Context/users";
+import Context from "../../Context/users";
 import styles from "./styles.module.scss";
+import { ManualClose } from "../modal/index";
 
-export function TableNames() {
+export function TableNames({ dadosPaciente }: any) {
   const { dataGlobal, search } = useContext(Context);
-
   const [filteredData, setFilteredData] = useState<never[]>();
 
   useEffect(() => {
@@ -25,9 +25,10 @@ export function TableNames() {
       return setFilteredData(dataGlobal);
     } else {
       setFilteredData(
-        dataGlobal.filter((item: { name: { first: string } }) => {
+        dataGlobal.filter((item: { name: { first: string; last: string } }) => {
           if (
-            item.name.first.toLowerCase().indexOf(search.toLowerCase()) > -1
+            item.name.first.toLowerCase().indexOf(search.toLowerCase()) > -1 ||
+            item.name.last.toLowerCase().indexOf(search.toLowerCase()) > -1
           ) {
             return item;
           }
@@ -39,6 +40,7 @@ export function TableNames() {
   if (filteredData) {
     return (
       <TableContainer>
+        <ManualClose paciente={dadosPaciente} />
         <Table variant="unstyled" className={styles.table}>
           <Thead>
             <Tr>
