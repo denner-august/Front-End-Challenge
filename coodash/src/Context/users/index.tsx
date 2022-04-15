@@ -24,7 +24,7 @@ export const ConxtProvider = (props: { children: ReactChild }) => {
   const [search, setSearch] = useState("");
   const [dataGlobal, setDataGlobal] = useState<never[]>([]);
   const { data, error } = useFetch(
-    "https://randomuser.me/api/?page=1&results=10&seed=abc"
+    "https://randomuser.me/api/?page=1&results=50&seed=abc"
   );
 
   useEffect(() => {
