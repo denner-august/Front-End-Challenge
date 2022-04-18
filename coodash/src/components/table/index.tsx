@@ -10,11 +10,13 @@ import {
 import { useContext, useEffect, useState } from "react";
 import Context from "../../Context/users";
 import styles from "./styles.module.scss";
-import { ManualClose } from "../modal/index";
+import { PacienteFicha } from "../modal/index";
 
 export function TableNames({ dadosPaciente }: any) {
   const { dataGlobal, search } = useContext(Context);
   const [filteredData, setFilteredData] = useState<never[]>();
+  const [openficha, setOpenFicha] = useState(false);
+  const [paciente, setpaciente] = useState<any>("");
 
   useEffect(() => {
     return setFilteredData(dataGlobal);
@@ -40,7 +42,12 @@ export function TableNames({ dadosPaciente }: any) {
   if (filteredData) {
     return (
       <TableContainer>
-        <ManualClose paciente={dadosPaciente} />
+        <PacienteFicha
+          paciente={paciente}
+          pacienteUrl={dadosPaciente}
+          modalopen={openficha}
+          closeModal={setOpenFicha}
+        />
         <Table variant="unstyled" className={styles.table}>
           <Thead>
             <Tr>
@@ -67,7 +74,12 @@ export function TableNames({ dadosPaciente }: any) {
                   <Td>{user.gender}</Td>
                   <Td>{new Date(user.dob.date).toLocaleDateString("pt-br")}</Td>
                   <Td className={styles.ficha}>
-                    <button onClick={() => console.log(user)}>
+                    <button
+                      onClick={() => {
+                        setOpenFicha(true);
+                        setpaciente(user);
+                      }}
+                    >
                       Vizualizar
                     </button>
                   </Td>
