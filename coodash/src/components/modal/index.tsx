@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   useDisclosure,
   Button,
@@ -10,27 +10,38 @@ import {
   ModalBody,
   ModalFooter,
 } from "@chakra-ui/react";
+import styles from "./styles.module.scss";
 
-export function ManualClose({ paciente }: any) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+export function PacienteFicha({
+  pacienteUrl,
+  modalopen,
+  closeModal,
+  paciente,
+}: any) {
+  const { onClose } = useDisclosure();
   const [urlPaciente, setUrlPaciente] = useState("qualquer coisa");
+
+  const memoizedValue = useMemo(() => paciente, [paciente]); // como o use memo funciona
+  console.log(memoizedValue);
 
   return (
     <>
-      <Button onClick={onOpen}>Open Modal</Button>
-
-      <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
+      <Modal closeOnOverlayClick={false} isOpen={modalopen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Create your account</ModalHeader>
+          <ModalHeader>Ficha do paciente</ModalHeader>
           <ModalCloseButton />
-          <ModalBody pb={6}>{paciente}</ModalBody>
+          <ModalBody pb={6}>{pacienteUrl ? pacienteUrl : "dados"}</ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3}>
-              Save
+            <Button
+              width="100%"
+              className={styles.button}
+              colorScheme="red"
+              onClick={() => closeModal(false)}
+            >
+              Fechar ficha
             </Button>
-            <Button onClick={onClose}>Cancel</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
