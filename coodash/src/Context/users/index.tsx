@@ -12,7 +12,7 @@ import axiosData from "../../services/axiosData";
 import { useFetch } from "../../hooks/useFetch";
 
 export interface ContextProps {
-  dataGlobal: never[];
+  dataGlobal: any;
   search: string;
   setSearch: Dispatch<SetStateAction<string>>;
   setDataGlobal: (value: any) => void;
@@ -22,9 +22,9 @@ const Context = createContext({} as ContextProps);
 
 export const ConxtProvider = (props: { children: ReactChild }) => {
   const [search, setSearch] = useState("");
-  const [dataGlobal, setDataGlobal] = useState<never[]>([]);
+  const [dataGlobal, setDataGlobal] = useState([]);
   const { data, error } = useFetch(
-    "https://randomuser.me/api/?page=1&results=50&seed=abc"
+    "https://randomuser.me/api/?page=1&results=50&seed=1"
   );
 
   useEffect(() => {
