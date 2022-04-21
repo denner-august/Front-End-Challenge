@@ -1,0 +1,44 @@
+.Container{
+       
+    a{
+        font-size: 1rem;
+        color: black;      
+    }
+    ul{
+        margin-top: 1rem;
+        list-style: none;
+        li{
+            align-items: center;
+            display: flex;
+            font-size: 1.2rem;
+            
+            p{
+                font-size:1rem;
+                margin-right: 0.5rem;
+                color: blue;
+
+                
+            }
+        }
+    }
+    .layoutImage{
+        margin-top: -80px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .imagemPaciente{
+            border-radius: 100%;
+         }
+    }
+    
+    
+    #identification{
+        text-align: center;
+        font-size: 1.5rem;
+    }
+    
+}
