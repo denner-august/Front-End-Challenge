@@ -14,7 +14,7 @@ import { PacienteFicha } from "../modal/index";
 
 export function TableNames({ dadosPaciente }: any) {
   const { dataGlobal, search } = useContext(Context);
-  const [filteredData, setFilteredData] = useState<never[]>();
+  const [filteredData, setFilteredData] = useState<any>(undefined);
   const [openficha, setOpenFicha] = useState(false);
   const [paciente, setpaciente] = useState<any>("");
 
@@ -26,23 +26,42 @@ export function TableNames({ dadosPaciente }: any) {
     if (search === "") {
       return setFilteredData(dataGlobal);
     } else {
-      setFilteredData(
-        dataGlobal.filter((item: { name: { first: string; last: string } }) => {
+      let Data = dataGlobal.results.filter(
+        (item: { name: { first: string; last: string } }) => {
           if (
             item.name.first.toLowerCase().indexOf(search.toLowerCase()) > -1 ||
             item.name.last.toLowerCase().indexOf(search.toLowerCase()) > -1
           ) {
             return item;
           }
-        })
+        }
       );
+
+      let DataFilter = { results: [...Data], info: dataGlobal.info };
+
+      setFilteredData(DataFilter);
     }
   }, [search]);
+
+  useEffect(() => {
+    if (dadosPaciente) {
+      setOpenFicha(true);
+    }
+  }, [dadosPaciente]);
+
+  if (filteredData == 0) {
+    return (
+      <div>
+        <p>carregando</p>
+      </div>
+    );
+  }
 
   if (filteredData) {
     return (
       <TableContainer>
         <PacienteFicha
+          dataPacientes={filteredData}
           paciente={paciente}
           pacienteUrl={dadosPaciente}
           modalopen={openficha}
@@ -58,7 +77,7 @@ export function TableNames({ dadosPaciente }: any) {
             </Tr>
           </Thead>
           <Tbody>
-            {filteredData.map(
+            {filteredData.results.map(
               (
                 user: {
                   name: { first: string; last: string };
@@ -76,6 +95,7 @@ export function TableNames({ dadosPaciente }: any) {
                   <Td className={styles.ficha}>
                     <button
                       onClick={() => {
+                        // console.log(filteredData);
                         setOpenFicha(true);
                         setpaciente(user);
                       }}
@@ -92,5 +112,5 @@ export function TableNames({ dadosPaciente }: any) {
     );
   }
 
-  return <p>objeto vazio</p>;
+  return null;
 }
