@@ -3,20 +3,21 @@ import { useContext, useState } from "react";
 import { useFetch } from "../../hooks/useFetch";
 import Context from "../../Context/users";
 export function Button() {
-  const [pageIndex, setPageIndex] = useState(2);
+  const [pageIndex, setPageIndex] = useState(50);
 
   const { dataGlobal, setDataGlobal } = useContext(Context);
   const { data, error } = useFetch(
-    `https://randomuser.me/api/?page=${pageIndex}&results=50&seed=1`
+    `https://randomuser.me/api/?page=1&results=${pageIndex}&seed=1`
   );
 
   function newPages() {
-    setPageIndex(pageIndex + 1);
+    setPageIndex(pageIndex + 50);
     if (data) {
       let FetchData = data.results.map((item: any) => item);
-      let GlobalData = dataGlobal.results.map((item: any) => item);
-      let FetchGlobalData = GlobalData.concat(FetchData);
-      const final = { results: [...FetchGlobalData], info: data.info };
+      // let GlobalData = dataGlobal.results.map((item: any) => item);
+      // let FetchGlobalData = GlobalData.concat(FetchData);
+      // const final = { results: [...FetchGlobalData], info: data.info };
+      const final = { results: [...FetchData], info: data.info };
       setDataGlobal(final);
     }
   }
