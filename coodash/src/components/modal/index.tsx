@@ -15,27 +15,32 @@ import { useFetch } from "../../hooks/useFetch";
 import { useFetchUrl } from "../../hooks/useFecthUrl";
 
 export function PacienteFicha({
-  pacienteUrl,
+  numberPaciente,
+  pacienteObject,
   modalopen,
   closeModal,
   paciente,
-  dataPacientes,
 }: any) {
   const { onClose } = useDisclosure();
   const [urlPaciente, setUrlPaciente] = useState("qualquer coisa");
   const [pacienteData, setPacienteData] = useState(null);
 
   const { data, error } = useFetchUrl(
-    `https://randomuser.me/api/?page=1&results=50&seed=1`
+    `https://randomuser.me/api/?page=1&results=${pacienteObject.position}&seed=1`
   );
 
   const memoizedValue = useMemo(() => paciente, [paciente]); // como o use memo funciona
 
   useEffect(() => {
     async function searhUrl() {
-      if (data !== undefined && pacienteUrl) {
+      if (
+        data !== undefined &&
+        pacienteObject.paciente != "" &&
+        pacienteObject.position != ""
+      ) {
         let search = await data.results.find(
-          (user: { login: { uuid: Number } }) => user.login.uuid === pacienteUrl
+          (user: { login: { uuid: Number } }) =>
+            user.login.uuid === pacienteObject.paciente
         );
         if (search) {
           setPacienteData(search);
@@ -44,15 +49,14 @@ export function PacienteFicha({
     }
 
     searhUrl();
-  }, [data]);
+  }, [pacienteObject, data]);
 
-  useEffect(() => {
-    setPacienteData(memoizedValue ?? memoizedValue);
-  }, [paciente]);
-
-  useEffect(() => {
-    setUrlPaciente(pacienteUrl);
-  }, [pacienteUrl]);
+  function closePacienteUrl() {
+    closeModal(false);
+    if (pacienteData != null) {
+      setPacienteData(null);
+    }
+  }
 
   return (
     <div>
@@ -61,7 +65,10 @@ export function PacienteFicha({
         <ModalContent marginTop={"25vh"} width={"auto"} maxWidth={9000}>
           <ModalCloseButton onClick={() => closeModal(false)} />
           <ModalBody pb={6}>
-            <DadosPaciente dados={pacienteData} />
+            <DadosPaciente
+              dados={pacienteData != null ? pacienteData : memoizedValue}
+              numberPaciente={numberPaciente}
+            />
           </ModalBody>
 
           <ModalFooter>
@@ -69,7 +76,7 @@ export function PacienteFicha({
               width="100%"
               className={styles.button}
               colorScheme="red"
-              onClick={() => closeModal(false)}
+              onClick={() => closePacienteUrl()}
             >
               Fechar ficha
             </Button>
