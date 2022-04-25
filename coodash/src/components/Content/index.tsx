@@ -3,7 +3,7 @@ import { Search } from "../search/index";
 import { Dispatch, SetStateAction, useState } from "react";
 import { TableNames } from "../table";
 
-export function Content({pacienteNumber}:any) {
+export function Content() {
   const [search, setSearch] = useState<Dispatch<SetStateAction<string>>>();
 
   return (
@@ -16,7 +16,7 @@ export function Content({pacienteNumber}:any) {
 
       <Search searching={setSearch} />
       <main className={styles.conteudo}>
-        <TableNames dadosPaciente={pacienteNumber} />
+        <TableNames/>
       </main>
     </>
   );
