@@ -26,15 +26,24 @@ export function PacienteFicha({
   const [pacienteData, setPacienteData] = useState(null);
 
   const { data, error } = useFetchUrl(
-    `https://randomuser.me/api/?page=1&results=1`
+    `https://randomuser.me/api/?page=1&results=50&seed=1`
   );
 
   const memoizedValue = useMemo(() => paciente, [paciente]); // como o use memo funciona
 
   useEffect(() => {
-    if (data !== undefined && pacienteUrl) {
-      setPacienteData(data.results[0]);
+    async function searhUrl() {
+      if (data !== undefined && pacienteUrl) {
+        let search = await data.results.find(
+          (user) => user.login.uuid === pacienteUrl
+        );
+        if (search) {
+          setPacienteData(search);
+        }
+      }
     }
+
+    searhUrl();
   }, [data]);
 
   useEffect(() => {
