@@ -2,6 +2,7 @@ import Image from "next/image";
 import styles from "./styles.module.scss";
 
 export function DadosPaciente({ dados }: any) {
+  console.log(dados);
   if (dados === null) {
     return <h3>não tem nada</h3>;
   }
