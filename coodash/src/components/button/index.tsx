@@ -14,9 +14,6 @@ export function Button() {
     setPageIndex(pageIndex + 50);
     if (data) {
       let FetchData = data.results.map((item: any) => item);
-      // let GlobalData = dataGlobal.results.map((item: any) => item);
-      // let FetchGlobalData = GlobalData.concat(FetchData);
-      // const final = { results: [...FetchGlobalData], info: data.info };
       const final = { results: [...FetchData], info: data.info };
       setDataGlobal(final);
     }
