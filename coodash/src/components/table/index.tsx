@@ -95,7 +95,6 @@ export function TableNames({ dadosPaciente }: any) {
                   <Td className={styles.ficha}>
                     <button
                       onClick={() => {
-                        // console.log(filteredData);
                         setOpenFicha(true);
                         setpaciente(user);
                       }}
