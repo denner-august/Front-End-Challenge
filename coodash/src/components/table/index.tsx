@@ -12,14 +12,18 @@ import Context from "../../Context/users";
 import styles from "./styles.module.scss";
 import { PacienteFicha } from "../modal/index";
 
-export function TableNames({ dadosPaciente }: any) {
-  const { dataGlobal, search } = useContext(Context);
+export function TableNames() {
+  const { dataGlobal, search, pacienteObject } = useContext(Context);
   const [filteredData, setFilteredData] = useState<any>(undefined);
   const [openficha, setOpenFicha] = useState(false);
   const [paciente, setpaciente] = useState<any>("");
+  const [infoResults, setInfoResults] = useState(0);
 
   useEffect(() => {
-    return setFilteredData(dataGlobal);
+    if (dataGlobal != 0 && dataGlobal != undefined) {
+      setInfoResults(dataGlobal.info.results);
+      setFilteredData(dataGlobal);
+    }
   }, [dataGlobal]);
 
   useEffect(() => {
@@ -44,10 +48,10 @@ export function TableNames({ dadosPaciente }: any) {
   }, [search]);
 
   useEffect(() => {
-    if (dadosPaciente) {
+    if (pacienteObject.paciente != "" && pacienteObject.position != "") {
       setOpenFicha(true);
     }
-  }, [dadosPaciente]);
+  }, [pacienteObject]);
 
   if (filteredData == 0) {
     return (
@@ -61,9 +65,10 @@ export function TableNames({ dadosPaciente }: any) {
     return (
       <TableContainer>
         <PacienteFicha
+          numberPaciente={infoResults}
           dataPacientes={filteredData}
           paciente={paciente}
-          pacienteUrl={dadosPaciente}
+          pacienteObject={pacienteObject}
           modalopen={openficha}
           closeModal={setOpenFicha}
         />
