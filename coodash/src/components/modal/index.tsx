@@ -35,7 +35,7 @@ export function PacienteFicha({
     async function searhUrl() {
       if (data !== undefined && pacienteUrl) {
         let search = await data.results.find(
-          (user) => user.login.uuid === pacienteUrl
+          (user: { login: { uuid: Number } }) => user.login.uuid === pacienteUrl
         );
         if (search) {
           setPacienteData(search);
