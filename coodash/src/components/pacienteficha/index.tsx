@@ -1,10 +1,9 @@
 import Image from "next/image";
 import styles from "./styles.module.scss";
 
-export function DadosPaciente({ dados }: any) {
-  console.log(dados);
+export function DadosPaciente({ dados, numberPaciente }: any) {
   if (dados === null) {
-    return <h3>não tem nada</h3>;
+    return <h3>link incorreto</h3>;
   }
   if (dados) {
     return (
@@ -55,7 +54,7 @@ export function DadosPaciente({ dados }: any) {
               Compartilhar:
               <a>
                 {" "}
-                {`https://front-end-challenge-coodesh-one.vercel.app/paciente/${dados.login.uuid}`}
+                {`https://front-end-challenge-coodesh-one.vercel.app/paciente/${dados.login.uuid}/${numberPaciente}`}
               </a>
             </p>
           </li>
