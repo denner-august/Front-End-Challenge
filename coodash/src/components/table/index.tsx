@@ -13,7 +13,7 @@ import styles from "./styles.module.scss";
 import { PacienteFicha } from "../modal/index";
 
 export function TableNames() {
-  const { dataGlobal, search, pacienteObject } = useContext(Context);
+  const { dataGlobal, search, pacienteObject, gender } = useContext(Context);
   const [filteredData, setFilteredData] = useState<any>(undefined);
   const [openficha, setOpenFicha] = useState(false);
   const [paciente, setpaciente] = useState<any>("");
@@ -29,6 +29,25 @@ export function TableNames() {
   useEffect(() => {
     if (search === "") {
       return setFilteredData(dataGlobal);
+    } else if (gender !== "") {
+      let Data = dataGlobal.results.filter(
+        (item: { name: { first: string; last: string } }) => {
+          if (
+            item.name.first.toLowerCase().indexOf(search.toLowerCase()) > -1 ||
+            item.name.last.toLowerCase().indexOf(search.toLowerCase()) > -1
+          ) {
+            return item;
+          }
+        }
+      );
+
+      let filterGender = Data.filter(
+        (item: { gender: string }) => item.gender === gender
+      );
+
+      let DataFilter = { results: [...filterGender], info: dataGlobal.info };
+
+      setFilteredData(DataFilter);
     } else {
       let Data = dataGlobal.results.filter(
         (item: { name: { first: string; last: string } }) => {
@@ -45,7 +64,23 @@ export function TableNames() {
 
       setFilteredData(DataFilter);
     }
-  }, [search]);
+  }, [dataGlobal, gender, search]);
+
+  useEffect(() => {
+    if (gender === "") {
+      return setFilteredData(dataGlobal);
+    } else {
+      let Data = dataGlobal.results.filter((item: { gender: string }) => {
+        if (item.gender.toLowerCase() === gender) {
+          return item;
+        }
+      });
+
+      let DataFilter = { results: [...Data], info: dataGlobal.info };
+
+      setFilteredData(DataFilter);
+    }
+  }, [dataGlobal, dataGlobal.info, dataGlobal.results, gender]);
 
   useEffect(() => {
     if (pacienteObject.paciente != "" && pacienteObject.position != "") {

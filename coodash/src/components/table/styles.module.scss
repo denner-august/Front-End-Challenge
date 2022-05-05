@@ -1,19 +1,17 @@
 .table{
-    width: 10%;
-    border:1px solid black;    
+
 
     th{
         font-size: 1.1rem;
         background-color: #C3CFD9;
     }
     th,td{
-       text-align: center;
+       text-align: center; //defini o alinhamento do texto
        border:1px solid black;
     }
 
     td{
         font-size: 1.3rem;
-    
     }
     .ficha{
         background-color: rgb(24, 224, 57);
@@ -23,4 +21,24 @@
     .ficha:hover{
         background-color: rgb(25, 190, 53);
     }
+}
+
+@media screen and (max-width: 750px) {
+   .table{
+    th{
+        display: none;
+
+    }
+    td{
+        border: 1px solid rgb(170, 162, 162);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ficha{
+        margin: 0px 0px  10px 0px;
+        border-radius: 4px;
+    }
+   }
 }

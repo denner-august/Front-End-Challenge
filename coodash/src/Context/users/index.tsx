@@ -20,11 +20,15 @@ export interface ContextProps {
   setPacienteObject: Dispatch<
     SetStateAction<{ paciente: string; position: string }>
   >;
+
+  gender: string;
+  setGender: (value: string) => void;
 }
 
 const Context = createContext({} as ContextProps);
 
 export const ConxtProvider = (props: { children: ReactChild }) => {
+  const [gender, setGender] = useState("");
   const [search, setSearch] = useState("");
   const [dataGlobal, setDataGlobal] = useState([]);
   const [pacienteObject, setPacienteObject] = useState({
@@ -51,6 +55,8 @@ export const ConxtProvider = (props: { children: ReactChild }) => {
         setSearch,
         pacienteObject,
         setPacienteObject,
+        setGender,
+        gender,
       }}
     >
       {props.children}

@@ -2,6 +2,7 @@ import styles from "./styles.module.scss";
 import { Search } from "../search/index";
 import { Dispatch, SetStateAction, useState } from "react";
 import { TableNames } from "../table";
+import { SelectGenderNationality } from "../GenderNationality/SelectGender";
 
 export function Content() {
   const [search, setSearch] = useState<Dispatch<SetStateAction<string>>>();
@@ -14,9 +15,13 @@ export function Content() {
         informação dos seus pacientes de maneira simples e objetiva.
       </p>
 
-      <Search searching={setSearch} />
+      <div className={styles.filter}>
+        <Search searching={setSearch} />
+        <SelectGenderNationality />
+      </div>
+
       <main className={styles.conteudo}>
-        <TableNames/>
+        <TableNames />
       </main>
     </>
   );
