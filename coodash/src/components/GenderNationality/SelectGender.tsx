@@ -10,7 +10,9 @@ export function SelectGenderNationality() {
         width="50%"
         margin={"auto"}
         placeholder="Selecione o gênero"
-        onClick={(value) => setGender(value.currentTarget.value)}
+        onClick={(value: { currentTarget: { value: string } }) =>
+          setGender(value.currentTarget.value)
+        }
       >
         <option value="male">Male</option>
         <option value="female">female</option>

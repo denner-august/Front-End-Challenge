@@ -139,7 +139,7 @@ export function TableNames() {
                         setpaciente(user);
                       }}
                     >
-                      Vizualizar
+                      Visualizar
                     </button>
                   </Td>
                 </Tr>
